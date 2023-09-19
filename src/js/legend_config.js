@@ -4,6 +4,8 @@ import * as PlaceLayers from "../layer/place.js";
 import * as LanduseLayers from "../layer/landuse.js";
 import * as BoundaryLayers from "../layer/boundary.js";
 import * as RoadLayers from "../layer/road.js";
+import * as TrackLayers from "../layer/track.js";
+import * as PathLayers from "../layer/path.js";
 import * as ConstructionLayers from "../layer/construction.js";
 import * as HighwayExitLayers from "../layer/highway_exit.js";
 import * as RailLayers from "../layer/rail.js";
@@ -28,6 +30,8 @@ export const sections = [
     name: "Roads",
     entries: [
       ...RoadLayers.legendEntries,
+      ...TrackLayers.legendEntries,
+      ...PathLayers.legendEntries,
       ...ConstructionLayers.legendEntries,
       ...HighwayExitLayers.legendEntries,
     ],
