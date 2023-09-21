@@ -191,4 +191,14 @@ export const legendEntries = [
     layers: [path.id],
     filter: fordSelect,
   },
+  {
+    description: "Informal trail",
+    layers: [informalPath.id],
+    filter: notFordSelect,
+  },
+  {
+    description: "Informal trail - ford",
+    layers: [informalPath.id],
+    filter: fordSelect,
+  },
 ];

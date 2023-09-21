@@ -27,7 +27,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           npm ci --include=dev
-          cp src/configs/config.aws.js src/config.js
+          cp src/configs/config.trailstash.js src/config.js
           npm run build
           npm run style
           npm run shields
