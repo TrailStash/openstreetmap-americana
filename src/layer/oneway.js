@@ -10,7 +10,6 @@ export const surface = {
     ["==", ["get", "oneway"], 1],
     ["!=", ["get", "ramp"], 1],
     ["!", ["in", ["get", "brunnel"], ["literal", ["bridge", "tunnel"]]]],
-    ["!", ["in", ["get", "class"], ["literal", ["path", "track"]]]],
   ],
   source: "openmaptiles",
   "source-layer": "transportation",
@@ -74,7 +73,6 @@ export const tunnel = {
     ["==", ["get", "oneway"], 1],
     ["!=", ["get", "ramp"], 1],
     ["==", ["get", "brunnel"], "tunnel"],
-    ["!", ["in", ["get", "class"], ["literal", ["path", "track"]]]],
   ],
   paint: {
     "icon-opacity": 0.2,
@@ -89,6 +87,5 @@ export const bridge = {
     ["==", ["get", "oneway"], 1],
     ["!=", ["get", "ramp"], 1],
     ["==", ["get", "brunnel"], "bridge"],
-    ["!", ["in", ["get", "class"], ["literal", ["path", "track"]]]],
   ],
 };
