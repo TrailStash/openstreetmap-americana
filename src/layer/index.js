@@ -88,6 +88,8 @@ export function build(locales) {
     lyrAeroway.taxiway,
     lyrAeroway.taxiwayArea,
 
+    lyrPath.informalPath,
+    lyrPath.sidewalkPath,
     lyrPath.path,
     lyrPath.pavedPath,
     lyrTrack.track,
@@ -193,6 +195,7 @@ export function build(locales) {
 
     lyrRoad.roadBridge.surface(),
 
+    lyrPath.sidewalkBridge,
     lyrPath.pathBridge,
     lyrPath.pavedPathBridge,
     lyrTrack.trackBridge,

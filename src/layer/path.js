@@ -12,10 +12,23 @@ const unpavedSelect = [
   false,
   [">=", ["to-number", ["get", "mtb_scale"]], 1],
   true,
+  ["==", ["get", "subclass"], "path"],
+  true,
   false,
 ]
-const trailSelect = unpavedSelect;
-const pathSelect = ["!", unpavedSelect];
+const sidewalkSelect = [
+  "case",
+  ["==", ["get", "footway"], "sidewalk"],
+  true,
+  ["==", ["get", "footway"], "crossing"],
+  true,
+  false,
+]
+const informalSelect = ["==", ["get", "informal"], "yes"];
+const notInformalSelect = ["!", informalSelect];
+const cutSelect = ["all", informalSelect, ["!", sidewalkSelect]]
+const trailSelect = ["all", unpavedSelect, ["!", sidewalkSelect], ["!", informalSelect]];
+const pathSelect = ["all", ["!", unpavedSelect], ["!", sidewalkSelect], ["!", informalSelect]];
 const bridgeSelect = ["==", ["get", "brunnel"], "bridge"];
 const fordSelect = ["==", ["get", "brunnel"], "ford"];
 const notFordSelect = ["!=", ["get", "brunnel"], "ford"];
@@ -50,6 +63,28 @@ export const pavedPath = {
 };
 pavedPath["paint"]["line-dasharray"] = [1, 0];
 
+export const informalPath = {
+  id: "highway-path-informal",
+  type: "line",
+  source: "openmaptiles",
+  "source-layer": "transportation",
+  filter: ["all", pathClassSelect, cutSelect],
+  minzoom: 14,
+  paint: { ...path.paint },
+};
+informalPath["paint"]["line-dasharray"] = [1.5, 1.5];
+
+export const sidewalkPath = {
+  id: "highway-path-sidewalk",
+  type: "line",
+  source: "openmaptiles",
+  "source-layer": "transportation",
+  filter: ["all", pathClassSelect, sidewalkSelect],
+  minzoom: 15,
+  paint: { ...path.paint },
+};
+sidewalkPath["paint"]["line-dasharray"] = [1, 0];
+
 export const pathBridge = {
   id: "highway-path-bridge",
   type: "line",
@@ -70,13 +105,23 @@ export const pavedPathBridge = {
   paint: { ...pavedPath.paint },
 };
 
+export const sidewalkBridge = {
+  id: "highway-path-sidewalk-bridge",
+  type: "line",
+  source: "openmaptiles",
+  "source-layer": "transportation",
+  filter: ["all", pathClassSelect, sidewalkSelect, bridgeSelect],
+  minzoom: 12,
+  paint: { ...pavedPath.paint },
+};
+
 // Bridge casing layers
 export const bridgeCasing = {
   id: "path-bridge-casing",
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", bridgeSelect, pathClassSelect],
+  filter: ["all", bridgeSelect, pathClassSelect, notInformalSelect],
   minzoom: 13,
   layout: {
     "line-cap": "butt",
@@ -103,7 +148,7 @@ export const bridgeFill = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", bridgeSelect, pathClassSelect],
+  filter: ["all", bridgeSelect, pathClassSelect, notInformalSelect],
   minzoom: 13,
   layout: {
     "line-cap": "butt",
@@ -127,23 +172,23 @@ export const bridgeFill = {
 
 export const legendEntries = [
   {
-    description: "Unpaved path",
-    layers: [path.id],
+    description: "Path",
+    layers: [pavedPath.id],
     filter: notFordSelect,
   },
   {
-    description: "Unpaved path - ford",
-    layers: [path.id],
+    description: "Path - ford",
+    layers: [pavedPath.id],
     filter: fordSelect,
   },
   {
-    description: "Paved path",
-    layers: [pavedPath.id],
+    description: "Trail",
+    layers: [path.id],
     filter: notFordSelect,
   },
   {
-    description: "Paved path - ford",
-    layers: [pavedPath.id],
+    description: "Trail - ford",
+    layers: [path.id],
     filter: fordSelect,
   },
 ];
