@@ -2,7 +2,7 @@
 
 import * as Color from "../constants/color.js";
 
-const pathSelect = ["==", ["get", "class"], "path"];
+const pathClassSelect = ["==", ["get", "class"], "path"];
 //const unpavedSelect = ["!=", ["get", "surface"], "paved"];
 const unpavedSelect = [
   "case",
@@ -14,8 +14,8 @@ const unpavedSelect = [
   true,
   false,
 ]
-//const pavedSelect = ["==", ["get", "surface"], "paved"];
-const pavedSelect = ["!", unpavedSelect];
+const trailSelect = unpavedSelect;
+const pathSelect = ["!", unpavedSelect];
 const bridgeSelect = ["==", ["get", "brunnel"], "bridge"];
 const fordSelect = ["==", ["get", "brunnel"], "ford"];
 const notFordSelect = ["!=", ["get", "brunnel"], "ford"];
@@ -27,7 +27,7 @@ export const path = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", pathSelect, unpavedSelect],
+  filter: ["all", pathClassSelect, trailSelect],
   minzoom: 12,
   paint: {
     "line-color": ["match", getBrunnel, "ford", Color.waterLine, "rgb(0.1,0.1,0.1)"],
@@ -44,7 +44,7 @@ export const pavedPath = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", pathSelect, pavedSelect],
+  filter: ["all", pathClassSelect, pathSelect],
   minzoom: 12,
   paint: { ...path.paint },
 };
@@ -55,7 +55,7 @@ export const pathBridge = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", pathSelect, unpavedSelect, bridgeSelect],
+  filter: ["all", pathClassSelect, trailSelect, bridgeSelect],
   minzoom: 12,
   paint: { ...path.paint },
 };
@@ -65,7 +65,7 @@ export const pavedPathBridge = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", pathSelect, pavedSelect, bridgeSelect],
+  filter: ["all", pathClassSelect, pathSelect, bridgeSelect],
   minzoom: 12,
   paint: { ...pavedPath.paint },
 };
@@ -76,7 +76,7 @@ export const bridgeCasing = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", bridgeSelect, pathSelect],
+  filter: ["all", bridgeSelect, pathClassSelect],
   minzoom: 13,
   layout: {
     "line-cap": "butt",
@@ -103,7 +103,7 @@ export const bridgeFill = {
   type: "line",
   source: "openmaptiles",
   "source-layer": "transportation",
-  filter: ["all", bridgeSelect, pathSelect],
+  filter: ["all", bridgeSelect, pathClassSelect],
   minzoom: 13,
   layout: {
     "line-cap": "butt",
