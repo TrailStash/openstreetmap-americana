@@ -1,0 +1,41 @@
+{
+  "name": "@trailstash/stylejs-americana",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.3.1",
+  "description": "A TrailStash StyleJS compliant wrapper of OSM Americana, TrailStash Edition",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "run-s build:americana build:package build:sprites",
+    "build:package": "esbuild --format=esm --bundle index.js --outfile=dist/index.js",
+    "build:sprites": "cp -rL sprites dist/.",
+    "build:americana": "npm --prefix node_modules/openstreetmap-americana i && cp node_modules/openstreetmap-americana/src/configs/config.aws.js node_modules/openstreetmap-americana/src/config.js && npm --prefix node_modules/openstreetmap-americana run build && npm --prefix node_modules/openstreetmap-americana run shields",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/trailstash/maplibre-utils.git"
+  },
+  "keywords": [
+    "Mapibre",
+    "Map",
+    "OSM",
+    "GIS",
+    "OpenStreetMap",
+    "TrailStash",
+    "Americana"
+  ],
+  "author": "Daniel Schep <dschep@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/trailstash/maplibre-utils/issues"
+  },
+  "homepage": "https://gitlab.com/trailstash/maplibre-utils#readme",
+  "devDependencies": {
+    "@americana/maplibre-shield-generator": "file:../shieldlib",
+    "esbuild": "^0.19.2",
+    "npm-run-all": "^4.1.5",
+    "openstreetmap-americana": "file:.."
+  }
+}
