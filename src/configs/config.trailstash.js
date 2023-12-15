@@ -3,7 +3,7 @@
 /*
 Planetiler tile server, hosted at cloudflare
 */
-const OPENMAPTILES_URL = "https://tiles.trailstash.net/openmaptiles-2023-09-20.json";
+const OPENMAPTILES_URL = "https://tiles.trailstash.net/openmaptiles.json";
 /*
 The following two variables override the color of the bounding box and halo of
 shield text, respectively. Useful while testing shield design changes.
